@@ -31,6 +31,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -88,6 +90,7 @@ public class ClasspathTemplateLoader implements CodeTemplateRepoLoader {
                 urlFile = urlFile.substring(separatorIndex + 1);
             } else {
                 String classpathPath = ClasspathTemplateLoader.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+                classpathPath = URLDecoder.decode(classpathPath, StandardCharsets.UTF_8);
                 urlFile = urlFile.startsWith(classpathPath) ? urlFile.replace(classpathPath, "/") : urlFile;
             }
 
